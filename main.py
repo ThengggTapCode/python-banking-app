@@ -23,7 +23,16 @@ if __name__ == '__main__':
                 match choice:
                     # sign up
                     case '1':
-                        print('sign-up')
+                        signUpStatus = signUp()
+                        signedIn = True if signUpStatus == 'sign_up_success' else False
+                        sleepFor(1)
+                        clearTerminal()
+                        
+                        match signUpStatus:
+                            case 'sign_up_success':
+                                print('Tạo tài khoản thành công!\n')
+                            case 'username_existing':
+                                print('Username đã tồn tại! Vui lòng nhập lại\n')
                         
                     # sign in
                     case '2':

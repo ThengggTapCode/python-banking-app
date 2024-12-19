@@ -33,3 +33,7 @@ def readJsonFile(fileName = 'users.json'):
         with open(fileName, 'w') as file:
             file.write('[]')
             return '[]'
+        
+def saveDataToJson(data, fileName = 'users.json'):
+    with open(fileName, 'w', encoding='utf-8') as file:
+        json.dump(data, file, indent=4, ensure_ascii=False)
