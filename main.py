@@ -1,23 +1,12 @@
 import os
 import keyboard
+from packages import *
 
-def clearTerminal():
-    return os.system('cls')
-
-def forceExit():
-    print('Đã bấm Ctrl-C để thoát khẩn cấp - Bấm bất kì phím nào để thoát')
-    keyboard.read_event()
+if __name__ == '__main__':
+    jsonFileCheck()
+    clearTerminal()
     
-def pressAnyKeyToExit():
-    print('Nhập bất kì phím nào để thoát...')
-    keyboard.read_event()
-
-def inputLine(msg):
-    print(f'{msg}\n>', end=' ')
-    
-def main():
     signedIn = False
-    
     while True:
         if not signedIn:
             # print menu
@@ -29,7 +18,8 @@ def main():
                 # get user input
                 inputLine('Nhập lựa chọn của bạn')
                 choice = input()
-
+                clearTerminal()
+                
                 match choice:
                     # sign up
                     case '1':
@@ -37,17 +27,40 @@ def main():
                         
                     # sign in
                     case '2':
-                        print('sign-in')
-                    
+                        signInStatus = signIn()
+                        signedIn = True if signInStatus == 'sign_in_success' else False
+                        sleepFor(1)
+                        clearTerminal()
+                        
+                        match signInStatus:
+                            # sign in success
+                            case 'sign_in_success':
+                                print('Đăng nhập thành công!\n')
+                            # incorrect username
+                            case 'incorrect_username':
+                                print('Username không tồn tại! Vui lòng nhập lại\n')
+                            # incorrect password
+                            case 'incorrect_password':
+                                print('Mật khẩu không đúng! Vui lòng nhập lại\n')
+                            # no user available
+                            case 'no_users_available':
+                                print('Hiện tại không có tài khoản nào cả! Vui lòng tạo một tài khoản mới\n')
                     # exit
                     case '0':
                         pressAnyKeyToExit()
                         break
+                    
+                    # default
+                    case _:
+                        print('Vui lòng nhập lựa chọn hợp lệ\n')
             # force exit
             except KeyboardInterrupt:
+                sleepFor(1)
+                clearTerminal()
                 forceExit()
                 break
-            
+
+            sleepFor(1)
         else:
             # print option
             print('1. Nạp tiền')
@@ -67,11 +80,9 @@ def main():
                     case '0':
                         pressAnyKeyToExit()
                         break
+                    # any other features are n/a, please wait for updates!
                     
             except KeyboardInterrupt:
                 forceExit()
                 break
             
-if __name__ == '__main__':
-    clearTerminal()
-    main()
