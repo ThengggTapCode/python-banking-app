@@ -1,5 +1,3 @@
-import os
-import keyboard
 from packages import *
 
 if __name__ == '__main__':

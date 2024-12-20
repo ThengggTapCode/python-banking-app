@@ -1,17 +1,15 @@
 import os
-import keyboard
 import time
 
 def clearTerminal():
-    return os.system('cls')
+    clear = 'cls' if os.name == 'nt' else 'clear'
+    return os.system(clear)
 
 def forceExit():
-    print('Đã bấm Ctrl-C để thoát khẩn cấp - Bấm bất kì phím nào để thoát')
-    keyboard.read_event()
+    input('Đã bấm Ctrl-C để thoát khẩn cấp - Bấm bất kì phím nào để thoát...\n')
     
 def pressAnyKeyToExit():
-    print('Nhập bất kì phím nào để thoát...')
-    keyboard.read_event()
+    input('Nhập bất kì phím nào để thoát...\n')
 
 def inputLine(msg):
     print(f'{msg}\n>', end=' ')
