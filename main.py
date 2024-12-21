@@ -5,6 +5,7 @@ if __name__ == '__main__':
     clearTerminal()
     
     signedIn = False
+    signedInAs = ''
     while True:
         if not signedIn:
             # print menu
@@ -21,8 +22,9 @@ if __name__ == '__main__':
                 match choice:
                     # sign up
                     case '1':
-                        signUpStatus = signUp()
+                        signUpStatus, username = signUp()
                         signedIn = True if signUpStatus == 'sign_up_success' else False
+                        signedInAs = username if signedIn else ''
                         sleepFor(1)
                         clearTerminal()
                         
@@ -34,8 +36,9 @@ if __name__ == '__main__':
                         
                     # sign in
                     case '2':
-                        signInStatus = signIn()
+                        signInStatus, username = signIn()
                         signedIn = True if signInStatus == 'sign_in_success' else False
+                        signedInAs = username if signedIn else ''
                         sleepFor(1)
                         clearTerminal()
                         
@@ -81,15 +84,21 @@ if __name__ == '__main__':
                 # get user input
                 inputLine('Nhập lựa chọn của bạn')
                 choice = input()
+                clearTerminal()
                 
                 match choice:
+                    # deposit
+                    case '1':
+                        deposit(signedInAs)
                     # exit
                     case '0':
                         pressAnyKeyToExit()
                         break
                     # any other features are n/a, please wait for updates!
-                    
+            # force exit
             except KeyboardInterrupt:
+                sleepFor(1)
+                clearTerminal()
                 forceExit()
                 break
-            
+            sleepFor(1)

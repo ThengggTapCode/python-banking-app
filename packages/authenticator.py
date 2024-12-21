@@ -19,19 +19,25 @@ def signUp():
         inputLine('Xác nhận lại mật khẩu')
         confirmPassword = input().lower().strip()
         
-        for user in users:
-            if user['username'] == username:
-                status = 'username_existing'
-                return status
-            
-        users.append({
-            "displayName": displayName,
-            "username": username,
-            "password": password
-        })
-        saveDataToJson(users)
-        status = 'sign_up_success'
-        return status
+        if confirmPassword != password:
+            print('Vui lòng xác nhận lại mật khẩu\n')
+            sleepFor(1)
+
+        else:
+            for user in users:
+                if user['username'] == username:
+                    status = 'username_existing'
+                    return status, None
+                
+            users.append({
+                "displayName": displayName,
+                "username": username,
+                "password": password,
+                "balance": 0.0
+            })
+            saveDataToJson(users)
+            status = 'sign_up_success'
+            return status, username
         
 def signIn():
     status = ''
@@ -40,7 +46,7 @@ def signIn():
         
         if len(users) == 0:
             status = 'no_users_available'
-            return status
+            return status, None
         
         # get input
         inputLine('Nhập username: ')
@@ -56,5 +62,5 @@ def signIn():
                 status = 'incorrect_password'
             else:
                 status = 'sign_in_success'
-                return status
-        return status
+                return status, username
+        return status, None
