@@ -2,65 +2,59 @@ from .jsonFileHandling import *
 from .common import *
 
 def signUp():
-    status = ''
-    while True:
-        users = readJsonFile()
+    users = readJsonFile()
         
-        # get input
-        inputLine('Nhập tên hiển thị')
-        displayName = input().strip()
-        
-        inputLine('Nhập username mới')
-        username = input().lower().strip()
-        
-        inputLine('Nhập mật khẩu mới')
-        password = input().lower().strip()
-        
-        inputLine('Xác nhận lại mật khẩu')
-        confirmPassword = input().lower().strip()
-        
-        if confirmPassword != password:
-            print('Vui lòng xác nhận lại mật khẩu\n')
-            sleepFor(1)
+    # get input
+    inputLine('Nhập tên hiển thị')
+    displayName = input().strip()
+    
+    inputLine('Nhập username mới')
+    username = input().lower().strip()
+    
+    inputLine('Nhập mật khẩu mới')
+    password = input().lower().strip()
+    
+    inputLine('Xác nhận lại mật khẩu')
+    confirmPassword = input().lower().strip()
 
-        else:
-            for user in users:
-                if user['username'] == username:
-                    status = 'username_existing'
-                    return status, None
-                
-            users.append({
-                "displayName": displayName,
-                "username": username,
-                "password": password,
-                "balance": 0.0
-            })
-            saveDataToJson(users)
-            status = 'sign_up_success'
-            return status, username
+    for user in users:
+        # exit if username existing
+        if user['username'] == username:
+            return 'username_existing', None
+    # exit if confirm password not matching
+    if confirmPassword != password:
+        return 'confirm_password_not_matching', None
+    
+    # add user data to json file
+    users.append({
+        "displayName": displayName,
+        "username": username,
+        "password": password,
+        "balance": 0.0
+    })
+    saveDataToJson(users)
+    return 'sign_up_success', username
         
 def signIn():
-    status = ''
-    while True:
-        users = readJsonFile()
-        
-        if len(users) == 0:
-            status = 'no_users_available'
-            return status, None
-        
-        # get input
-        inputLine('Nhập username: ')
-        username = input().lower().strip()
-        
-        inputLine('Nhập mật khẩu: ')
-        password = input().lower().strip()
-        
-        for user in users:
-            if user['username'] != username:
-                status = 'incorrect_username'
-            elif user['password'] != password:
-                status = 'incorrect_password'
+    users = readJsonFile()
+    
+    if len(users) == 0:
+        return 'no_users_available', None
+    
+    # get input
+    inputLine('Nhập username: ')
+    username = input().lower().strip()
+    
+    inputLine('Nhập mật khẩu: ')
+    password = input().lower().strip()
+    
+    for user in users:
+        if user['username'] == username:
+            # if username and password matches then sign in success
+            if user['password'] == password:
+                return 'sign_in_success', username
+            # if password didnt match
             else:
-                status = 'sign_in_success'
-                return status, username
-        return status, None
+                return 'incorrect_password', None
+    # if username didnt match
+    return 'incorrect_username', None

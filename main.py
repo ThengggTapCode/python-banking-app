@@ -29,10 +29,15 @@ if __name__ == '__main__':
                         clearTerminal()
                         
                         match signUpStatus:
+                            # sign up success
                             case 'sign_up_success':
                                 print('Tạo tài khoản thành công!\n')
+                            # username existing
                             case 'username_existing':
                                 print('Username đã tồn tại! Vui lòng nhập lại\n')
+                            # confirm password not matching
+                            case 'confirm_password_not_matching':
+                                print('Vui lòng xác nhận lại mật khẩu!\n')
                         
                     # sign in
                     case '2':
@@ -90,6 +95,9 @@ if __name__ == '__main__':
                     # deposit
                     case '1':
                         deposit(signedInAs)
+                    # withdraw:
+                    case '2':
+                        withdraw(signedInAs)
                     # exit
                     case '0':
                         pressAnyKeyToExit()
