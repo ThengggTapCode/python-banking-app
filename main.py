@@ -18,6 +18,7 @@ if __name__ == '__main__':
                 inputLine('Nhập lựa chọn của bạn')
                 choice = input()
                 clearTerminal()
+                sleepFor(1)
                 
                 match choice:
                     # sign up
@@ -25,8 +26,8 @@ if __name__ == '__main__':
                         signUpStatus, username = signUp()
                         signedIn = True if signUpStatus == 'sign_up_success' else False
                         signedInAs = username if signedIn else ''
-                        sleepFor(1)
                         clearTerminal()
+                        sleepFor(1)
                         
                         match signUpStatus:
                             # sign up success
@@ -44,8 +45,8 @@ if __name__ == '__main__':
                         signInStatus, username = signIn()
                         signedIn = True if signInStatus == 'sign_in_success' else False
                         signedInAs = username if signedIn else ''
-                        sleepFor(1)
                         clearTerminal()
+                        sleepFor(1)
                         
                         match signInStatus:
                             # sign in success
@@ -70,8 +71,8 @@ if __name__ == '__main__':
                         print('Vui lòng nhập lựa chọn hợp lệ\n')
             # force exit
             except KeyboardInterrupt:
-                sleepFor(1)
                 clearTerminal()
+                sleepFor(1)
                 forceExit()
                 break
 
@@ -90,6 +91,7 @@ if __name__ == '__main__':
                 inputLine('Nhập lựa chọn của bạn')
                 choice = input()
                 clearTerminal()
+                sleepFor(1)
                 
                 match choice:
                     # deposit
@@ -98,6 +100,24 @@ if __name__ == '__main__':
                     # withdraw:
                     case '2':
                         withdraw(signedInAs)
+                    # show balance
+                    case '3':
+                        showBalance(signedInAs)
+                    # sign out
+                    case '5':
+                        status = signOut(signedInAs)
+                        signedIn = False if status == 'sign_out_success' else True
+                        
+                        match status:
+                            # incorrect password
+                            case 'incorrect_password':
+                                print('Mật khẩu không đúng! Hủy bỏ đăng xuất\n')
+                            # sign out cancelled
+                            case 'sign_out_cancelled':
+                                print('Đã hủy bỏ đăng xuất\n')
+                            # sign out success
+                            case 'sign_out_success':
+                                print('Đăng xuất thành công!\n')
                     # exit
                     case '0':
                         pressAnyKeyToExit()
@@ -105,8 +125,9 @@ if __name__ == '__main__':
                     # any other features are n/a, please wait for updates!
             # force exit
             except KeyboardInterrupt:
-                sleepFor(1)
                 clearTerminal()
+                sleepFor(1)
                 forceExit()
                 break
+            
             sleepFor(1)

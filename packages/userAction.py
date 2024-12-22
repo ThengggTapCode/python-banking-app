@@ -6,7 +6,7 @@ def deposit(username):
     users = readJsonFile()
     
     for user in users:
-        # if matchong username
+        # if matching username
         if user['username'] == username:
             # get input
             while True:
@@ -38,8 +38,8 @@ def withdraw(username):
     users = readJsonFile()
     
     for user in users:
+        # if matching username
         if user['username'] == username:
-            
             # exit if current balance is 0
             currentBalance = user['balance']
             if currentBalance < 1:
@@ -70,3 +70,14 @@ def withdraw(username):
                 # if ammount is not a number
                 except ValueError:
                     print('Vui lòng nhập số!\n')
+                    
+def showBalance(username):
+    # get 'users' array from json
+    users = readJsonFile()
+    
+    for user in users:
+        # if matching username
+        if user['username'] == username:
+            # wait for 1 sec
+            currentBalance = user['balance']
+            print(f'Hiện đang có {formatNumber(currentBalance)}vnđ trong tài khoản\n')

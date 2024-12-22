@@ -58,3 +58,35 @@ def signIn():
                 return 'incorrect_password', None
     # if username didnt match
     return 'incorrect_username', None
+
+def signOut(username):
+    # get 'users' array from json
+    users = readJsonFile()
+    
+    for user in users:
+        # if matching user
+        if user['username'] == username:
+            
+            while True:
+                # get confirm input
+                inputLine('Bạn có chắc muốn đăng xuất tài khoản không? Nhập Y/y để đồng ý, N/n để hủy')
+                choice = input().lower().strip()
+                clearTerminal()
+                sleepFor(1)
+                
+                if choice == 'n':
+                    clearTerminal()
+                    return 'sign_out_cancelled'
+                if choice == 'y':
+                    break
+                else:
+                    # print then wait for 1 sec
+                    print('Vui lòng nhập lựa chọn hợp lệ!\n')
+                    sleepFor(1)
+            
+            inputLine('Nhập lại mật khẩu để đăng xuất tài khoản')
+            password = input().lower().strip()
+            clearTerminal()
+            sleepFor(1)
+            
+            return 'sign_out_success' if password == user['password'] else 'incorrect_password'
