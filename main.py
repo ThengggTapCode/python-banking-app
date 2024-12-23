@@ -76,7 +76,6 @@ if __name__ == '__main__':
                 forceExit()
                 break
 
-            sleepFor(1)
         else:
             # print option
             print('1. Nạp tiền')
@@ -103,6 +102,9 @@ if __name__ == '__main__':
                     # show balance
                     case '3':
                         showBalance(signedInAs)
+                    # settings
+                    case '4':
+                        settingMenu()
                     # sign out
                     case '5':
                         status = signOut(signedInAs)
@@ -129,5 +131,4 @@ if __name__ == '__main__':
                 sleepFor(1)
                 forceExit()
                 break
-            
-            sleepFor(1)
+        sleepFor(1)

@@ -25,8 +25,6 @@ def deposit(username):
                     updateJsonData({'balance': newBalance}, username)
                     print(f'Đã nạp thành công {formatNumber(ammount)}vnđ! Hiện đang có {formatNumber(newBalance)}vnđ trong tài khoản\n')
                     
-                    # wait for 1 sec then exit
-                    sleepFor(1)
                     return
                 
                 # if ammount is not number
@@ -64,8 +62,6 @@ def withdraw(username):
                         updateJsonData({'balance': newBalance}, username)
                         print(f'Đã rút thành công {formatNumber(ammount)}vnđ! Hiện đang có {formatNumber(newBalance)}vnđ trong tài khoản\n')
                         
-                        # wait for 1 sec then exit
-                        sleepFor(1)
                         return
                 # if ammount is not a number
                 except ValueError:
