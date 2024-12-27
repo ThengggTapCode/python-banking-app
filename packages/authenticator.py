@@ -3,35 +3,30 @@ from .common import *
 
 def signUp():
     users = readJsonFile()
-    while True:
-        # get input
-        inputLine('Nhập tên hiển thị')
-        displayName = input().strip()
-        
-        inputLine('Nhập username mới')
-        username = input().lower().strip()
-        
-        inputLine('Nhập mật khẩu mới')
-        password = input().lower().strip()
-        
-        inputLine('Xác nhận lại mật khẩu')
-        confirmPassword = input().lower().strip()
-        
-        if not checkInfoLength(displayName):
-            clearTerminal()
-            sleepFor(1)
-            print('Vui lòng nhập tên hiển thị từ 1 kí tự trở lên!\n')
-        elif not checkInfoLength(username):
-            clearTerminal()
-            sleepFor(1)
-            print('Vui lòng nhập username thị từ 1 kí tự trở lên!\n')
-        elif not checkInfoLength(password):
-            clearTerminal()
-            sleepFor(1)
-            print('Vui lòng nhập mật khẩu từ 1 kí tự trở lên!\n')
-        else:
-            break
-        sleepFor(1)
+    # get input
+    inputLine('Nhập tên hiển thị')
+    displayName = input().strip()
+    
+    inputLine('Nhập username mới')
+    username = input().lower().strip()
+    
+    inputLine('Nhập mật khẩu mới')
+    password = input().lower().strip()
+    
+    inputLine('Xác nhận lại mật khẩu')
+    confirmPassword = input().lower().strip()
+    
+    # if display name length is less than 1
+    if not checkInfoLength(displayName):
+        return 'display_name_length_less_than_1', None
+    # if username length is less than 1
+    if not checkInfoLength(username):
+        return 'username_length_less_than_1', None
+    # if password length is less than 1
+    if not checkInfoLength(password):
+        return 'password_length_less_than_1', None
+    
+    sleepFor(1)
     for user in users:
         # exit if username existing
         if user['username'] == username:

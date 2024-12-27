@@ -39,6 +39,15 @@ if __name__ == '__main__':
                             # confirm password not matching
                             case 'confirm_password_not_matching':
                                 print('Vui lòng xác nhận lại mật khẩu!\n')
+                            # if display name length is less than 1
+                            case 'display_name_length_less_than_1':
+                                print('Vui lòng nhập tên hiển thị từ 1 kí tự trở lên!\n')
+                            # if username length is less than 1
+                            case 'username_length_less_than_1':
+                                print('Vui lòng nhập username từ 1 kí tự trở lên!\n')
+                            # if password length is less than 1
+                            case 'password_length_less_than_1':
+                                print('Vui lòng nhập mật khẩu từ 1 kí tự trở lên!\n')
                         
                     # sign in
                     case '2':
