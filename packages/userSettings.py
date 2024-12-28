@@ -1,52 +1,31 @@
 from .common import *
 from .jsonFileHandling import *
-from .authenticator import passwordChecking
-
-def confirmInfo():
-    # get input
-    inputLine('Nhập lại username')
-    username = input().lower().strip()
-    
-    inputLine('Nhập lại mật khẩu')
-    password = input().lower().strip()
-    
-    passwordStatus = passwordChecking(username, password)
-    return passwordStatus
+from .authenticator import passwordConfirm
         
 def changeDisplayName(username):
-    confirmInfoStatus = confirmInfo()
+    # get new display name
+    inputLine('Nhập tên hiển thị mới')
+    displayName = input().strip()
     
-    match confirmInfoStatus:
-        # ussername not found
-        case 'username_not_found':
-            return confirmInfoStatus
-        # incorrect password
-        case 'incorrect_password':
-            return confirmInfoStatus
-        # matching password
-        case 'password_matching':
-            # get new display name
-            inputLine('Nhập tên hiển thị mới')
-            displayName = input().strip()
-            
-            # if display name length is less than 1
-            if len(displayName) == 0:
-                return 'display_name_length_less_than_1'
-            
-            # update json file
-            updateJsonData({'displayName': displayName}, username)
-            return 'changed_display_name'
+    # if display name length is less than 1
+    if len(displayName) == 0:
+        return 'display_name_length_less_than_1'
+    
+    # update json file
+    updateJsonData({'displayName': displayName}, username)
+    return 'changed_display_name'
 
 def changeUsername(username):
-    confirmInfoStatus = confirmInfo()
+    # get password status from input
+    passwordStatus = passwordConfirm(username, 'Nhập lại mật khẩu để xác nhận đổi username')
     
-    match confirmInfoStatus:
+    match passwordStatus:
         # ussername not found
         case 'username_not_found':
-            return confirmInfoStatus
+            return passwordStatus
         # incorrect password
         case 'incorrect_password':
-            return confirmInfoStatus
+            return passwordStatus
         # matching password
         case 'password_matching':
             # get new ussername
@@ -69,15 +48,16 @@ def changeUsername(username):
             return 'changed_username'
         
 def changePassword(username):
-    confirmInfoStatus = confirmInfo()
+    # get password status from input
+    passwordStatus = passwordConfirm(username, 'Nhập lại mật khẩu để xác nhận đổi mật khẩu')
     
-    match confirmInfoStatus:
+    match passwordStatus:
         # ussername not found
         case 'username_not_found':
-            return confirmInfoStatus
+            return passwordStatus
         # incorrect password
         case 'incorrect_password':
-            return confirmInfoStatus
+            return passwordStatus
         # matching password
         case 'password_matching':
             # get new password

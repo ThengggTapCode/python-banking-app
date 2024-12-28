@@ -18,4 +18,4 @@ def sleepFor(seconds):
     return time.sleep(seconds)
 
 def formatNumber(num):
-    return f'{num:,.2f}'.replace(',', 'X').replace('.',',').replace('X', '.')
+    return f'{num:,.0f}'.replace(',', 'X').replace('.',',').replace('X', '.')

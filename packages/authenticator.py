@@ -26,7 +26,6 @@ def signUp():
     if not checkInfoLength(password):
         return 'password_length_less_than_1', None
     
-    sleepFor(1)
     for user in users:
         # exit if username existing
         if user['username'] == username:
@@ -89,15 +88,10 @@ def signOut(username):
             print('Vui lòng nhập lựa chọn hợp lệ!\n')
             sleepFor(1)
     
-    # get input password
-    inputLine('Nhập lại mật khẩu để xác nhận đăng xuất tài khoản')
-    password = input().lower().strip()
-    clearTerminal()
-    sleepFor(1)
+    # get password status from input
+    passwordStatus = passwordConfirm(username, 'Nhập lại mật khẩu để xác nhận đăng xuất tài khoản')
     
-    # get password status
-    passwordStatus = passwordChecking(username, password)
-    return 'sign_out_success' if passwordStatus == 'password_matching' else 'incorrect_password'
+    return 'sign_out_success' if passwordStatus == 'password_matching' else 'sign_out_cancelled'
         
 def passwordChecking(username, password):
     # get 'users' array from json file
@@ -115,3 +109,13 @@ def passwordChecking(username, password):
 
 def checkInfoLength(info):
     return True if len(info) > 0 else False
+
+def passwordConfirm(username, msg):
+    # get password
+    inputLine(msg)
+    password = input().lower().strip()
+    clearTerminal()
+    sleepFor(1)
+    
+    passwordStatus = passwordChecking(username, password)
+    return passwordStatus

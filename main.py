@@ -73,6 +73,7 @@ if __name__ == '__main__':
                     # exit
                     case '0':
                         pressAnyKeyToExit()
+                        clearTerminal()
                         break
                     
                     # default
@@ -132,6 +133,7 @@ if __name__ == '__main__':
                     # exit
                     case '0':
                         pressAnyKeyToExit()
+                        clearTerminal()
                         break
                     # any other features are n/a, please wait for updates!
             # force exit
@@ -139,5 +141,6 @@ if __name__ == '__main__':
                 clearTerminal()
                 sleepFor(1)
                 forceExit()
+                clearTerminal()
                 break
         sleepFor(1)
